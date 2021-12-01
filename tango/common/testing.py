@@ -25,17 +25,23 @@ class TangoTestCase:
     Root of the git repository.
     """
 
-    MODULE_ROOT = PROJECT_ROOT / "tango"
+    # to run test suite with finished package, which does not contain
+    # tests & fixtures, we must be able to look them up somewhere else
+    PROJECT_ROOT_FALLBACK = (
+        Path(os.environ["SRC_DIR"]) if "SRC_DIR" in os.environ else PROJECT_ROOT
+    )
+
+    MODULE_ROOT = PROJECT_ROOT_FALLBACK / "tango"
     """
     Root of the tango module.
     """
 
-    TESTS_ROOT = PROJECT_ROOT / "tests"
+    TESTS_ROOT = PROJECT_ROOT_FALLBACK / "tests"
     """
     Root of the tests directory.
     """
 
-    FIXTURES_ROOT = PROJECT_ROOT / "test_fixtures"
+    FIXTURES_ROOT = PROJECT_ROOT_FALLBACK / "test_fixtures"
     """
     Root of the test fixtures directory.
     """
